@@ -1,14 +1,16 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useMemo } from 'react';
+import { getUser } from '../../services/users';
 
-export const userContext = createContext();
+export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const {
-    currentUser: { id, email },
-  } = getUser();
-  const [user, setUser] = useState(currentUser ? { id: id, email: email } : {});
+  const currentUser = getUser();
+  const [user, setUser] = useState(
+    currentUser ? { id: currentUser.id, email: currentUser.email } : {}
+  );
+  const value = useMemo(() => ({ user, setUser }), [user]);
 
-  return <userContext.Provider value={value}>{children}</userContext.Provider>;
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 const useUser = () => {

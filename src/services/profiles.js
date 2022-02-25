@@ -18,3 +18,4 @@ export async function createProfile({ name, email, bio, birthday }) {
     .from('profiles')
     .insert({ name, email, bio, birthday });
   return parseData(request);
+}

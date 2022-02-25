@@ -37,7 +37,7 @@ export default function Auth({ isSigningUp = false }) {
         </p>
       ) : (
         <p>
-          Need to Sign-up? <Link to="/register"></Link>
+          Need to Sign-up? <Link to="/register">Sign Up</Link>
         </p>
       )}
     </main>

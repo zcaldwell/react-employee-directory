@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { signInUser, signUpUser } from '../../services/users';
 import { useUser } from '../../context/UserContext/UserContext';
+import UserForm from '../../components/UserForm/UserForm';
 
 export default function Auth({ isSigningUp = false }) {
   const { setUser } = useUser();

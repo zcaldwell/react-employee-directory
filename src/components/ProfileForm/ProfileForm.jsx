@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 
-export default function UserForm({ label, onSubmit }) {
+export default function ProfileForm({ label, onSubmit }) {
   const { formState, formError, clearForm, handleFormChange, setFormError } =
-    useForm({ email: '', password: '' });
+    useForm({ name: '', email: '', birthday: '', bio: '' });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -11,15 +11,13 @@ export default function UserForm({ label, onSubmit }) {
   }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { email, password } = formState;
+    e.prevent.default();
+    const { name, email, birthday, bio } = formState;
 
     try {
       setFormError('');
-      if (!email || password.length < 8)
-        throw new Error('An E-mail and 8+ Character Password Required.');
       setLoading(true);
-      await onSubmit(email, password);
+      await onSubmit(name, email, birthday, bio);
     } catch (error) {
       setFormError(error.message);
     } finally {
@@ -29,6 +27,16 @@ export default function UserForm({ label, onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <section>
+        <label>Name</label>
+        <input
+          id="name"
+          type="name"
+          name="name"
+          value={formState.name}
+          onChange={handleFormChange}
+        />
+      </section>
       <section>
         <label>Email</label>
         <input
@@ -40,12 +48,22 @@ export default function UserForm({ label, onSubmit }) {
         />
       </section>
       <section>
-        <label>Password</label>
+        <label>Birthday</label>
         <input
-          id="password"
-          type="password"
-          name="password"
-          value={formState.password}
+          id="birthday"
+          type="date"
+          name="birthday"
+          value={formState.birthday}
+          onChange={handleFormChange}
+        />
+      </section>
+      <section>
+        <label>Bio</label>
+        <textarea
+          id="bio"
+          type="text"
+          name="bio"
+          value={formState.bio}
           onChange={handleFormChange}
         />
       </section>

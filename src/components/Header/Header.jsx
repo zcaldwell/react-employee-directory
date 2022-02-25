@@ -9,7 +9,12 @@ export default function Header() {
     <>
       <h2>Employee Directory</h2>
       {user?.email ? (
-        <h3>Welcome {user?.email}!</h3>
+        <>
+          <h3>Welcome {user?.email}!</h3>
+          <div>
+            <AuthButton />
+          </div>
+        </>
       ) : (
         <>
           <h3>Please Sign In</h3>
